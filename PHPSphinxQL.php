@@ -11,6 +11,7 @@ class PHPSphinxQL
   protected $objSphinxConnection;
   protected $blnLiveConnection = false;
   private $arrStorage = array();
+  private $arrFields = array();
   private $arrQueries = array();
 
   /**
@@ -59,6 +60,15 @@ class PHPSphinxQL
   }
 
   /**
+   *
+   */
+  private function __get_fields($strIndex)
+  {
+
+    $arrAttributes = $this->__sphinx_conection('DESCRIBE ' . $strIndex);
+  }
+
+  /**
    * clean up the string for the attribute name
    *
    * @param $strAttribute
@@ -88,6 +98,11 @@ class PHPSphinxQL
     {
       return false;
     }
+  }
+
+  private function __compile_sql()
+  {
+    
   }
 
   /**
@@ -191,8 +206,11 @@ class PHPSphinxQL
       }
 
       // add
-      $this->arrStorage['filters'][$strAttribute] = array('value' => $mixValue,
-        'operator' => ((in_array($strOperator, array('=', '!=', '<', '>', '<=', '>=', 'IN', 'AND', 'NOT', 'NOT IN', 'BETWEEN'))) ? $strOperator : '='));
+      $this->arrStorage['filters'][$strAttribute][]
+        = array(
+            'value' => $mixValue,
+            'operator' => ((in_array($strOperator, array('=', '!=', '<', '>', '<=', '>=', 'IN', 'AND', 'NOT', 'NOT IN', 'BETWEEN'))) ? $strOperator : '=')
+      );
     }
   }
 
