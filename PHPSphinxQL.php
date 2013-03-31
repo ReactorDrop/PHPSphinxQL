@@ -71,7 +71,7 @@ class PHPSphinxQL
   /**
    * clean up the string for the attribute name
    *
-   * @param $strAttribute
+   * @param $strAttribute string
    * @return null|string
    */
   private function __clean_attribute($strAttribute)
@@ -88,6 +88,11 @@ class PHPSphinxQL
     }
   }
 
+  /**
+   * @param $mixValue
+   *
+   * @return bool
+   */
   private function __check_attribute_value($mixValue)
   {
     if (is_string($mixValue) || is_array($mixValue) || is_numeric($mixValue))
@@ -100,16 +105,19 @@ class PHPSphinxQL
     }
   }
 
+  /**
+   *
+   */
   private function __compile_sql()
   {
-    
+
   }
 
   /**
    * connect to our sphinx server or distributed handler
    *
-   * @param $strServer hostname or ip address (only one)
-   * @param $intPort the port at which sphinx is running on for :mysql41
+   * @param $strServer string hostname or ip address (only one)
+   * @param $intPort integer the port at which sphinx is running on for :mysql41
    */
   public function connect($strServer, $intPort)
   {
@@ -134,7 +142,7 @@ class PHPSphinxQL
   /**
    * sets attributes that we want to select in our query
    *
-   * @param $mixSelect an array or string of the attributes we want to select
+   * @param $mixSelect array|string an array or string of the attributes we want to select
    */
   public function set_select($mixSelect)
   {
@@ -161,7 +169,9 @@ class PHPSphinxQL
     }
   }
 
-
+  /**
+   *
+   */
   public function set_field_weights($arrFields)
   {
     if (is_array($arrFields))
@@ -173,10 +183,10 @@ class PHPSphinxQL
   /**
    * filter down our results by asking for documents with particular attributes
    *
-   * @param $strAttribute the attribute to filter by
-   * @param $mixValue the value that attribute should have
-   * @param $strOperator whether a direct match or greater than and so on
-   * @param $blnExclude are we including or excluding all documents matching this criteria
+   * @param $strAttribute string the attribute to filter by
+   * @param $mixValue array|string the value that attribute should have
+   * @param $strOperator string whether a direct match or greater than and so on
+   * @param $blnExclude boolean are we including or excluding all documents matching this criteria
    */
   public function set_filter($strAttribute, $mixValue, $strOperator = '=', $blnExclude = false)
   {
@@ -233,8 +243,8 @@ class PHPSphinxQL
   /**
    * sets options for this sql statement
    *
-   * @param $strOption name of the option
-   * @param $mixValue the value of the option (depending on the option)
+   * @param $strOption string name of the option
+   * @param $mixValue array|string|boolean the value of the option (depending on the option)
    * @usage http://sphinxsearch.com/docs/manual-2.1.1.html#sphinxql-select
    */
   public function set_option($strOption, $mixValue)
